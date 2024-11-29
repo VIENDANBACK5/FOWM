@@ -1,0 +1,48 @@
+/* src/components/ThemeSwitch.css */
+
+/* Cấu hình theme cho các radio buttons */
+.form-control {
+    margin-bottom: 1rem;
+  }
+  
+  .label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .radio {
+    margin-right: 10px;
+  }
+  
+  /* Định dạng cho mỗi theme */
+  html.default {
+    --background-color: #ffffff;
+    --text-color: #000000;
+  }
+  
+  html.retro {
+    --background-color: #ffcc00;
+    --text-color: #ffffff;
+  }
+  
+  html.cyberpunk {
+    --background-color: #ff00ff;
+    --text-color: #00ff00;
+  }
+  
+  html.valentine {
+    --background-color: #ff69b4;
+    --text-color: #ffffff;
+  }
+  
+  html.aqua {
+    --background-color: #00ffff;
+    --text-color: #000000;
+  }
+  
+  html {
+    background-color: var(--background-color, #ffffff);
+    color: var(--text-color, #000000);
+  }
+  
