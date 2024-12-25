@@ -46,7 +46,6 @@ const Order = () => {
   const [selectedProvince, setSelectedProvince] = useState('Hà Nội');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [menuItems, setMenuItems] = useState([]);
-  const [restaurants, setRestaurants] = useState([]);
 
   const scrollToTop = () => {
     restaurantGridRef.current?.scrollTo({
@@ -79,22 +78,313 @@ const Order = () => {
     };
   }, []);
   
-  useEffect(() => {
-    const fetchRestaurants = async () => {
-      try {
-        const response = await fetch('http://localhost:5000/api/restaurants');
-        const data = await response.json();
-        if (data.success) {
-          setRestaurants(data.data);
-        }
-      } catch (error) {
-        console.error('Error fetching restaurants:', error);
-        toast.error('Không thể tải danh sách món ăn');
-      }
-    };
-
-    fetchRestaurants();
-  }, []);
+const restaurants = [
+  {
+    id: 1,
+    name: "Cơm Rang Dưa Bò",
+    price: 35000,
+    ingredients: "Cơm, thịt bò xào, dưa chua, hành phi, đậu phộng",
+    recipe: "Cơm được rang với dưa chua và thịt bò thái lát mỏng, thêm hành phi và đậu phộng giã nhỏ",
+    calories: "450",
+    protein: "22",
+    carbs: "65",
+    tags: ["Món chính", "Cơm", "Bò"],
+    address: "122 Hoàng Quốc Việt, Q. Cầu Giấy, Hà Nội",
+    image: "https://th.bing.com/th?id=OSK.362992a34d547b85118c97f2e1b95ab0&w=226&h=150&rs=2&qlt=80&o=6&cdv=1&dpr=1.3&pid=16.1"
+  },
+  {
+    id: 2,
+    name: "Thịt Kho Tàu",
+    price: 40000,
+    ingredients: "Thịt ba chỉ, trứng vịt, nước dừa, nước mắm, đường phèn",
+    recipe: "Thịt ba chỉ kho với nước dừa và trứng vịt, nêm nếm đậm đà kiểu Nam Bộ",
+    calories: "520",
+    protein: "28",
+    carbs: "12",
+    tags: ["Món mặn", "Kho", "Thịt heo"],
+    address: "122 Hoàng Quốc Việt, Q. Cầu Giấy, Hà Nội",
+    image: "https://th.bing.com/th?id=OSK.cffebba80ca2cb4a616899c0208213b6&w=226&h=131&rs=2&qlt=80&o=6&cdv=1&dpr=1.3&pid=16.1"
+  },
+  {
+    id: 3,
+    name: "Cá Kho",
+    price: 45000,
+    ingredients: "Cá thu/cá ngừ, thơm, ớt, tỏi, nước mắm, đường",
+    recipe: "Cá được kho với thơm và ớt tươi, có vị cay nhẹ và đậm đà",
+    calories: "380",
+    protein: "32",
+    carbs: "8",
+    tags: ["Món mặn", "Hải sản", "Kho"],
+    address: "122 Hoàng Quốc Việt, Q. Cầu Giấy, Hà Nội",
+    image: "https://th.bing.com/th?id=OSK.9f4c0839ceda751b02f92c9dfea4a57b&w=226&h=150&rs=2&qlt=80&o=6&cdv=1&dpr=1.3&pid=16.1"
+  },
+  {
+    id: 4,
+    name: "Rau Muống Xào Tỏi",
+    price: 25000,
+    ingredients: "Rau muống tươi, tỏi băm, dầu ăn, nước mắm",
+    recipe: "Rau muống được xào nhanh với tỏi băm, giữ độ giòn tự nhiên",
+    calories: "85",
+    protein: "3",
+    carbs: "12",
+    tags: ["Món chay", "Rau xào", "Ít calo"],
+    address: "122 Hoàng Quốc Việt, Q. Cầu Giấy, Hà Nội",
+    image: "https://th.bing.com/th?id=OSK.f5a0e8ff2504ba3b8f7847291a1f96c8&w=226&h=150&rs=2&qlt=80&o=6&cdv=1&dpr=1.3&pid=16.1"
+  },
+  {
+    id: 5,
+    name: "Canh Cải Nấu Thịt",
+    price: 30000,
+    ingredients: "Cải thảo, thịt băm, hành khô, ngò rí",
+    recipe: "Canh cải nấu với thịt băm, nước dùng trong và ngọt tự nhiên",
+    calories: "120",
+    protein: "10",
+    carbs: "8",
+    tags: ["Canh", "Rau củ", "Thanh đạm"],
+    address: "122 Hoàng Quốc Việt, Q. Cầu Giấy, Hà Nội",
+    image: "https://th.bing.com/th/id/OIP.x1B3EFU2wbuFn52LCN94wQAAAA?w=227&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7"
+  },
+  {
+    id: 6,
+    name: "Sườn Xào Chua Ngọt",
+    price: 45000,
+    address: "122 Hoàng Quốc Việt, Q. Cầu Giấy, Hà Nội",
+    image: "https://th.bing.com/th?id=OSK.30a09cd8e4df1bccf7909c493d66b165&w=226&h=180&rs=2&qlt=80&o=6&cdv=1&dpr=1.3&pid=16.1",
+    user: {
+      name: "Quang Minh",
+      avatar: "https://i.pravatar.cc/150?img=6",
+      comment: "Sườn mềm, sốt vừa ăn"
+    },
+    stats: {
+      comments: 145,
+      photos: 42
+    }
+  },
+  {
+    id: 7,
+    name: "Đậu Phụ Sốt Cà Chua",
+    price: 25000,
+    address: "122 Hoàng Quốc Việt, Q. Cầu Giấy, Hà Nội",
+    image: "https://th.bing.com/th?id=OSK.986c1a83de6c4c13e9d5c499f6fcd92c&w=226&h=226&rs=2&qlt=80&o=6&cdv=1&dpr=1.3&pid=16.1",
+    user: {
+      name: "Thu Trang",
+      avatar: "https://i.pravatar.cc/150?img=7",
+      comment: "Đậu mềm, sốt cà chua đậm đà"
+    },
+    stats: {
+      comments: 88,
+      photos: 32
+    }
+  },
+  {
+    id: 8,
+    name: "Thịt Gà Kho Gừng",
+    price: 40000,
+    address: "122 Hoàng Quốc Việt, Q. Cầu Giấy, Hà Nội",
+    image: "https://th.bing.com/th/id/OIP.FiA8SB7TUPX91TXABg2f6gHaEK?w=314&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+    user: {
+      name: "Văn Nam",
+      avatar: "https://i.pravatar.cc/150?img=8",
+      comment: "Gà mềm, vị gừng thơm"
+    },
+    stats: {
+      comments: 167,
+      photos: 45
+    }
+  },
+  {
+    id: 9,
+    name: "Bí Xanh Xào Trứng",
+    price: 25000,
+    address: "122 Hoàng Quốc Việt, Q. Cầu Giấy, Hà Nội",
+    image: "https://th.bing.com/th/id/OIP.gq7OLquNBpIiYi6_fDr5vgHaFP?w=252&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+    user: {
+      name: "Mai Anh",
+      avatar: "https://i.pravatar.cc/150?img=9",
+      comment: "Bí tươi ngon, trứng béo"
+    },
+    stats: {
+      comments: 92,
+      photos: 28
+    }
+  },
+  {
+    id: 10,
+    name: "Canh Chua Cá Lóc",
+    price: 35000,
+    address: "122 Hoàng Quốc Việt, Q. Cầu Giấy, Hà Nội",
+    image: "https://th.bing.com/th?id=OSK.4f5b3a79c0fa23b8f4eac1e9f44b6dad&w=226&h=226&rs=2&qlt=80&o=6&cdv=1&dpr=1.3&pid=16.1",
+    user: {
+      name: "Hoàng Long",
+      avatar: "https://i.pravatar.cc/150?img=10",
+      comment: "Canh chua đậm đà, cá tươi"
+    },
+    stats: {
+      comments: 178,
+      photos: 56
+    }
+  },
+  {
+    id: 11,
+    name: "Thịt Bò Xào Cần Tây",
+    price: 45000,
+    address: "122 Hoàng Quốc Việt, Q. Cầu Giấy, Hà Nội",
+    image: "https://th.bing.com/th?id=OSK.ea620d21b1c6d57c0090cfbd69f217e2&w=226&h=127&rs=2&qlt=80&o=6&cdv=1&dpr=1.3&pid=16.1",
+    user: {
+      name: "Đức Anh",
+      avatar: "https://i.pravatar.cc/150?img=11",
+      comment: "Bò mềm, cần tây giòn ngọt"
+    },
+    stats: {
+      comments: 156,
+      photos: 48
+    }
+  },
+  {
+    id: 12,
+    name: "Trứng Chiên Thịt Băm",
+    price: 30000,
+    address: "122 Hoàng Quốc Việt, Q. Cầu Giấy, Hà Nội",
+    image: "https://th.bing.com/th/id/OIP.oqPUh4EdFRL7cmNduHCXHAHaE8?w=245&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+    user: {
+      name: "Thanh Hương",
+      avatar: "https://i.pravatar.cc/150?img=12",
+      comment: "Trứng béo, thịt băm thơm"
+    },
+    stats: {
+      comments: 112,
+      photos: 35
+    }
+  },
+  {
+    id: 13,
+    name: "Mướp Xào Tôm",
+    price: 35000,
+    address: "122 Hoàng Quốc Việt, Q. Cầu Giấy, Hà Nội",
+    image: "https://th.bing.com/th?id=OSK.76419fde8ece07ec6731b4b9b7931fcb&w=226&h=120&rs=2&qlt=80&o=6&cdv=1&dpr=1.3&pid=16.1",
+    user: {
+      name: "Minh Tú",
+      avatar: "https://i.pravatar.cc/150?img=13",
+      comment: "Mướp xanh, tôm tươi ngon"
+    },
+    stats: {
+      comments: 95,
+      photos: 30
+    }
+  },
+  {
+    id: 14,
+    name: "Canh Bí Đỏ Nấu Tôm",
+    price: 30000,
+    address: "122 Hoàng Quốc Việt, Q. Cầu Giấy, Hà Nội",
+    image: "https://www.bing.com/th?id=OIP.pVRiJ1o2eiAeNMF-T8Y6SwHaEK&w=190&h=106&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2",
+    user: {
+      name: "Hồng Nhung",
+      avatar: "https://i.pravatar.cc/150?img=14",
+      comment: "Bí ngọt, nước dùng thanh"
+    },
+    stats: {
+      comments: 86,
+      photos: 25
+    }
+  },
+  {
+    id: 15,
+    name: "Đùi Gà Chiên Mắm",
+    price: 40000,
+    address: "122 Hoàng Quốc Việt, Q. Cầu Giấy, Hà Nội",
+    image: "https://th.bing.com/th?id=OSK.b0b32c3a4417ebed88a8952a651fcb8b&w=226&h=118&rs=2&qlt=80&o=6&cdv=1&dpr=1.3&pid=16.1",
+    user: {
+      name: "Quốc Anh",
+      avatar: "https://i.pravatar.cc/150?img=15",
+      comment: "Gà giòn, mắm đậm đà"
+    },
+    stats: {
+      comments: 189,
+      photos: 58
+    }
+  },
+  {
+    id: 16,
+    name: "Cải Thìa Xào Nấm",
+    price: 25000,
+    address: "122 Hoàng Quốc Việt, Q. Cầu Giấy, Hà Nội",
+    image: "https://th.bing.com/th?id=OSK.bdbaa61ba94de6a0cdca3127528228c3&w=226&h=226&rs=2&qlt=80&o=6&cdv=1&dpr=1.3&pid=16.1",
+    user: {
+      name: "Thùy Linh",
+      avatar: "https://i.pravatar.cc/150?img=16",
+      comment: "Cải giòn, nấm thơm ngon"
+    },
+    stats: {
+      comments: 78,
+      photos: 24
+    }
+  },
+  {
+    id: 17,
+    name: "Thịt Lợn Rang Cháy Cạnh",
+    price: 40000,
+    address: "122 Hoàng Quốc Việt, Q. Cầu Giấy, Hà Nội",
+    image: "https://th.bing.com/th?id=OSK.912cf331cde2d6779f3ee578761127bd&w=226&h=153&rs=2&qlt=80&o=6&cdv=1&dpr=1.3&pid=16.1",
+    user: {
+      name: "Đình Phúc",
+      avatar: "https://i.pravatar.cc/150?img=17",
+      comment: "Thịt thơm, cháy cạnh vừa phải"
+    },
+    stats: {
+      comments: 167,
+      photos: 45
+    }
+  },
+  {
+    id: 18,
+    name: "Canh Rau Ngót Thịt Bằm",
+    price: 30000,
+    address: "122 Hoàng Quốc Việt, Q. Cầu Giấy, Hà Nội",
+    image: "https://th.bing.com/th/id/OIP.nlJk172oFm_8V16ew-3AOAHaE8?w=276&h=184&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+    user: {
+      name: "Thảo Vy",
+      avatar: "https://i.pravatar.cc/150?img=18",
+      comment: "Rau ngót xanh, canh ngọt"
+    },
+    stats: {
+      comments: 92,
+      photos: 28
+    }
+  },
+  {
+    id: 19,
+    name: "Bún Đậu Mắm Tôm",
+    price: 35000,
+    address: "122 Hoàng Quốc Việt, Q. Cầu Giấy, Hà Nội",
+    image: "https://th.bing.com/th?id=OSK.b010611251e63a26e92d5e4452ba1bd9&w=226&h=150&rs=2&qlt=80&o=6&cdv=1&dpr=1.3&pid=16.1",
+    user: {
+      name: "Hải Nam",
+      avatar: "https://i.pravatar.cc/150?img=19",
+      comment: "Đậu giòn, mắm tôm thơm"
+    },
+    stats: {
+      comments: 134,
+      photos: 42
+    }
+  },
+  {
+    id: 20,
+    name: "Cà Tím Nướng Mỡ Hành",
+    price: 25000,
+    address: "122 Hoàng Quốc Việt, Q. Cầu Giấy, Hà Nội",
+    image: "https://th.bing.com/th?id=OIP.baQDksU7IEB8O3w_W_VskwHaEK&w=310&h=198&c=12&rs=1&p=0&bgcl=5feb31&r=0&o=6&dpr=1.3&pid=23.1",
+    user: {
+      name: "Bảo Ngọc",
+      avatar: "https://i.pravatar.cc/150?img=20",
+      comment: "Cà tím mềm, mỡ hành thơm"
+    },
+    stats: {
+      comments: 108,
+      photos: 35
+    }
+  }
+];
 
   const handleGoToCart = () => {
     navigate('/cart');
