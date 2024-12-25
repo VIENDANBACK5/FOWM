@@ -71,7 +71,7 @@ exports.updateOrderStatus = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: 'Lỗi khi cập nh��t đơn hàng',
+      message: 'Lỗi khi cập nhật đơn hàng',
       error: error.message
     });
   }

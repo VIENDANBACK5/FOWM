@@ -86,7 +86,6 @@ const Cart = () => {
   const handlePaymentComplete = async () => {
     setIsProcessing(true);
     
-    // Hiển thị loading trong 5s
     setTimeout(() => {
       setShowPaymentModal(false);
       setIsProcessing(false);

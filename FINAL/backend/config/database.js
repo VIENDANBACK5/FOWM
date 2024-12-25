@@ -15,7 +15,6 @@ db.connect(err => {
   console.log('Đã kết nối thành công với MySQL');
 });
 
-// Test connection
 db.query('SELECT 1', (err, results) => {
   if (err) {
     console.error('Database test failed:', err);

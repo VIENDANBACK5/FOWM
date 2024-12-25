@@ -7,23 +7,19 @@ const orderItemRoutes = require('./routes/orderItemRoutes');
 
 const app = express();
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Log requests
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`);
   next();
 });
 
-// Routes
 app.use('/api/restaurants', restaurantRoutes);
 app.use('/api/tables', tableRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/order_items', orderItemRoutes);
 
-// Error handling middleware
 app.use((err, req, res, next) => {
   console.error('Error:', err.stack);
   res.status(500).json({
@@ -33,7 +29,6 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Handle 404
 app.use((req, res) => {
   console.log('404 Not Found:', req.url);
   res.status(404).json({

@@ -20,15 +20,12 @@ const FullScreenMenu = () => {
     const path = pathRef.current;
     const spanBefore = spanBeforeRef.current;
 
-    // Reset timeline nếu đã tồn tại
     tl.clear();
 
-    // Thiết lập giá trị ban đầu
     gsap.set(hamburger, { x: 0, y: 0, marginTop: "0px" });
     gsap.set(spanBefore, { background: "#000" });
     gsap.set(path, { attr: { d: "M0 2S175 1 500 1s500 1 500 1V0H0Z" } });
   
-    // Định nghĩa hoạt ảnh
     const start = "M0 502S175 272 500 272s500 230 500 230V0H0Z";
     const end = "M0, 1005S175, 995, 500, 995s500, 5, 500, 5V0H0Z";
   
@@ -79,7 +76,6 @@ const FullScreenMenu = () => {
           amount: 0.5
         }
       }, "-=1")
-      // Thay vì gọi reverse() ở đây, chỉ set progress về 0
     tl.progress(0);
 
     }, []);
@@ -89,7 +85,6 @@ const FullScreenMenu = () => {
       const tl = timeline.current;
       setIsOpen(!isOpen);
       
-      // Kiểm tra trạng thái hiện tại và play/reverse tương ứng
       if (!isOpen) {
         tl.play();
       } else {
@@ -159,7 +154,6 @@ const MenuItem = ({ prefix, text }) => {
   const handleClick = (e) => {
     e.preventDefault();
     
-    // Nếu là menu Home thì reload trang
     if (text.toLowerCase() === 'home') {
       setTimeout(() => {
         window.location.reload();
@@ -167,7 +161,6 @@ const MenuItem = ({ prefix, text }) => {
       return;
     }
 
-    // Các menu khác vẫn giữ nguyên logic cũ
     setTimeout(() => {
       navigate(`/${text.toLowerCase()}`);
     }, 1500);

@@ -52,4 +52,21 @@ exports.searchRestaurants = async (req, res) => {
       error: error.message
     });
   }
+};
+
+exports.createRestaurant = async (req, res) => {
+  try {
+    const restaurant = await Restaurant.create(req.body);
+    res.status(201).json({
+      success: true,
+      message: 'Thêm nhà hàng thành công',
+      data: restaurant
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Lỗi khi thêm nhà hàng',
+      error: error.message
+    });
+  }
 }; 

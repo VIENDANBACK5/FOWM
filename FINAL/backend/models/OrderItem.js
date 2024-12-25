@@ -1,7 +1,6 @@
 const db = require('../config/database');
 
 class OrderItem {
-  // Lấy tất cả order items
   static getAll() {
     return new Promise((resolve, reject) => {
       const query = `
@@ -25,7 +24,6 @@ class OrderItem {
     });
   }
 
-  // Lấy order items theo order_id
   static getByOrderId(orderId) {
     return new Promise((resolve, reject) => {
       const query = `
@@ -48,7 +46,6 @@ class OrderItem {
     });
   }
 
-  // Lấy order items theo restaurant_id
   static getByRestaurantId(restaurantId) {
     return new Promise((resolve, reject) => {
       const query = `
@@ -72,7 +69,6 @@ class OrderItem {
     });
   }
 
-  // Thêm order item mới
   static create(orderItem) {
     return new Promise((resolve, reject) => {
       const query = 'INSERT INTO order_items (order_id, restaurant_id, quantity, price) VALUES (?, ?, ?, ?)';
@@ -92,7 +88,6 @@ class OrderItem {
     });
   }
 
-  // Cập nhật order item
   static update(id, orderItem) {
     return new Promise((resolve, reject) => {
       const query = 'UPDATE order_items SET quantity = ?, price = ? WHERE id = ?';
@@ -112,7 +107,6 @@ class OrderItem {
     });
   }
 
-  // Xóa order item
   static delete(id) {
     return new Promise((resolve, reject) => {
       const query = 'DELETE FROM order_items WHERE id = ?';
