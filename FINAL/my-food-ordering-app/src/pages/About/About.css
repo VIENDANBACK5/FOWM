@@ -1,0 +1,92 @@
+.page.about {
+  width: 100%;
+  min-height: 100vh;
+  overflow-y: auto;
+  background-color: #c4bcb3;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.page.about h1 {
+  margin: 20px 0;
+  font-size: 2.5rem;
+  color: #333;
+  text-align: center;
+}
+
+.about-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  padding-bottom: 60px;
+}
+
+.about-section {
+  background: #fff;
+  padding: 30px;
+  margin-bottom: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.about-section h2 {
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+}
+
+.about-section p {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.values-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.values-list li {
+  padding: 10px 0;
+  padding-left: 25px;
+  position: relative;
+  color: #666;
+}
+
+.values-list li::before {
+  content: "•";
+  color: #4CAF50;
+  font-size: 1.5em;
+  position: absolute;
+  left: 0;
+}
+
+.contact-info {
+  color: #666;
+}
+
+.contact-info p {
+  margin: 10px 0;
+}
+
+.contact-info strong {
+  color: #333;
+  margin-right: 10px;
+}
+
+@media (max-width: 600px) {
+  .page.about h1 {
+    font-size: 2rem;
+  }
+
+  .about-section {
+    padding: 20px;
+  }
+
+  .about-section h2 {
+    font-size: 1.5rem;
+  }
+} 

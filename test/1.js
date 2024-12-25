@@ -117,3 +117,4 @@ toggleBtn.addEventListener("click", () => {
   hamburger.classList.toggle("active");
   menu.classList.toggle("open");
 });
+
